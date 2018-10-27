@@ -1,16 +1,16 @@
 #! /usr/bin/env bash
 
-# terminals.sh creates a new tmux window and ssh'es into a number of hosts with
-# one tmux pane per ssh connection. For example, if hosts.txt contains the
-# following contents:
+# terminals_panes.sh creates a new tmux window and ssh'es into a number of
+# hosts with one tmux pane per ssh connection. For example, if hosts.txt
+# contains the following contents:
 #
 #   111.111.111.111
 #   222.222.222.222
 #   333.333.333.333
 #
-# then `./terminals.sh -f hosts.txt` creates a tmux window with three panes.
-# The first ssh'es into 111.111.111, the second ssh'es into 222.222.222, and
-# the third ssh'es into 333.333.333.
+# then `./terminals_panes.sh -f hosts.txt` creates a tmux window with three
+# panes. The first ssh'es into 111.111.111, the second ssh'es into
+# 222.222.222, and the third ssh'es into 333.333.333.
 
 set -euo pipefail
 
