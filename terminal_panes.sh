@@ -77,19 +77,20 @@ main() {
     done
 
     # Create and layout panes.
-    tmux new-window ${window_name:+"-n $window_name"}
+    window_id="$(tmux new-window ${window_name:+-n $window_name} \
+                    -P -F '#{session_name}:#{window_name}')"
     for ((i = 1; i < "${#ssh_cmds[@]}"; ++i)); do
-        tmux split-window -h -p 99
+        tmux split-window -t "${window_id}.0" -h -p 1
     done
-    tmux select-layout even-vertical
+    tmux select-layout -t "$window_id" even-vertical
 
-    # Run ssh command on each pane.
+    # Run ssh cmmand on each pane.
     for ((i = 0; i < "${#ssh_cmds[@]}"; ++i)); do
-        tmux send-keys -t "$i" "${ssh_cmds[i]}" C-m
+        tmux send-keys -t "${window_id}.$i" "${ssh_cmds[i]}" C-m
     done
 
     # Synchronize panes.
-    tmux set-window-option synchronize-panes on
+    tmux set-window-option -t "${window_id}" synchronize-panes on
 }
 
 main "$@"
