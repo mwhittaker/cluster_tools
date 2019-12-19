@@ -82,7 +82,7 @@ main() {
     for ((i = 1; i < "${#ssh_cmds[@]}"; ++i)); do
         tmux split-window -t "${window_id}.0" -h -p 1
     done
-    tmux select-layout -t "$window_id" even-vertical
+    tmux select-layout -t "$window_id" tiled
 
     # Run ssh cmmand on each pane.
     for ((i = 0; i < "${#ssh_cmds[@]}"; ++i)); do
